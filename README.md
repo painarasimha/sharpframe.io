@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SharpFrame
 
-## Getting Started
+Marketing site for **SharpFrame** — an AI-native content agency for DTC skincare
+and supplement brands. This is a Next.js rebuild of the original single-file
+`sharpframe_website.html`, with the same content but a modern, component-based
+architecture.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router) + **React 19**
+- **TypeScript**
+- **Tailwind CSS v4** (CSS-first theme in `src/app/globals.css`)
+- **shadcn/ui** primitives (`Button`, `Accordion`) on Radix UI
+- **next/font** for Syne, DM Sans & DM Mono
+- **lucide-react** icons
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── layout.tsx          # fonts + metadata
+│   ├── page.tsx            # composes every section
+│   └── globals.css         # Tailwind v4 theme + design tokens
+├── components/
+│   ├── reveal.tsx          # IntersectionObserver fade-up wrapper
+│   ├── sections/           # one component per page section
+│   └── ui/                 # shadcn primitives (button, accordion)
+├── hooks/
+│   └── use-count-up.ts     # eased count-up animation for the hero ticker
+└── lib/
+    ├── content.ts          # all copy / data, kept editable in one place
+    └── utils.ts            # cn() helper
+```
 
-## Learn More
+## Design tokens
 
-To learn more about Next.js, take a look at the following resources:
+The original palette (electric-lime accent on a near-black surface) and
+typography live as CSS variables in `globals.css` and are exposed to Tailwind
+through `@theme` — e.g. `bg-surface`, `text-brand`, `border-rule`,
+`font-display`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Available scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run start` — serve the production build
+- `npm run lint` — run ESLint
