@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────
+   SHARPFRAME DESIGN SYSTEM
+   Palette:
+   ink     #0A090C  near-black with purple undertone
+   surface #0F0E12  page background
+   lift    #16141B  card surface
+   raised  #1E1B26  elevated card
+   rule    #2A2733  borders / dividers
+   ghost   #3D3A4A  muted border
+   text    #EAE8F0  primary text
+   dim     #8A879A  secondary text
+   mute    #4A4758  tertiary / labels
+   brand   #C8F044  signature accent — electric lime
+   brand-dark #1A2500  lime dark bg
+   brand-mid  #4A6A00  lime mid
+
+   Typography:
+   Display: Syne 700/800
+   Body:    DM Sans 300/400
+   Mono:    DM Mono 400/500
+───────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --ink: #0a090c;
+  --surface: #0f0e12;
+  --lift: #16141b;
+  --raised: #1e1b26;
+  --rule: #2a2733;
+  --ghost: #3d3a4a;
+  --text: #eae8f0;
+  --dim: #8a879a;
+  --mute: #4a4758;
+  --brand: #c8f044;
+  --brand-dark: #1a2500;
+  --brand-mid: #4a6a00;
+
+  /* shadcn semantic tokens */
+  --background: var(--surface);
+  --foreground: var(--text);
+  --primary: var(--brand);
+  --primary-foreground: var(--ink);
+  --secondary: var(--raised);
+  --secondary-foreground: var(--text);
+  --muted: var(--lift);
+  --muted-foreground: var(--dim);
+  --accent: var(--raised);
+  --accent-foreground: var(--text);
+  --border: var(--rule);
+  --input: var(--rule);
+  --ring: var(--brand);
+  --radius: 0.625rem;
 }
 
 @theme inline {
+  /* Brand colors → utilities (bg-surface, text-dim, border-rule, …) */
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-lift: var(--lift);
+  --color-raised: var(--raised);
+  --color-rule: var(--rule);
+  --color-ghost: var(--ghost);
+  --color-text: var(--text);
+  --color-dim: var(--dim);
+  --color-mute: var(--mute);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-mid: var(--brand-mid);
+
+  /* shadcn semantic colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Fonts */
+  --font-display: var(--font-syne);
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-dm-mono);
+
+  /* Radii */
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Animations */
+  --animate-marquee: marquee 24s linear infinite;
+  --animate-accordion-down: accordion-down 0.3s ease;
+  --animate-accordion-up: accordion-up 0.3s ease;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
 }
