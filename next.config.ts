@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // A parent directory also contains a lockfile, so pin the workspace root
-  // to this project to silence Next's root-inference warning.
-  turbopack: {
-    root: __dirname,
-  },
+  // Static export — the whole site is prerendered to /out and served as files.
+  output: "export",
+  // Trailing slashes keep static hosts happy with nested routes.
+  trailingSlash: true,
+  images: { unoptimized: true },
+  turbopack: { root: __dirname },
 };
 
 export default nextConfig;

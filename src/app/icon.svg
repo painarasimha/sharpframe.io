@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0B0B0C"/>
+  <!-- the square-frame mark: four corner brackets, in Sharp Lime -->
+  <g stroke="#C6F432" stroke-width="5" stroke-linecap="square" fill="none">
+    <path d="M12 22V12h10M42 12h10v10M52 42v10H42M22 52H12V42"/>
+  </g>
+  <rect x="27" y="27" width="10" height="10" fill="#C6F432"/>
+</svg>

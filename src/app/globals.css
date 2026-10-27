@@ -2,126 +2,102 @@
 
 /* ─────────────────────────────────────────────
    SHARPFRAME DESIGN SYSTEM
-   Palette:
-   ink     #0A090C  near-black with purple undertone
-   surface #0F0E12  page background
-   lift    #16141B  card surface
-   raised  #1E1B26  elevated card
-   rule    #2A2733  borders / dividers
-   ghost   #3D3A4A  muted border
-   text    #EAE8F0  primary text
-   dim     #8A879A  secondary text
-   mute    #4A4758  tertiary / labels
-   brand   #C8F044  signature accent — electric lime
-   brand-dark #1A2500  lime dark bg
-   brand-mid  #4A6A00  lime mid
+   Warm off-white, near-black ink, one sharp lime.
+   Minimal — but not navy, and not anyone else's.
 
-   Typography:
-   Display: Syne 700/800
-   Body:    DM Sans 300/400
-   Mono:    DM Mono 400/500
+   Lime is rationed: buttons, one highlighted word
+   per headline, stat numbers on dark sections,
+   icon dots. Never a large lime area on a light
+   page. On light backgrounds a headline word is
+   highlighted with a lime MARKER STROKE behind
+   ink text, never with lime text.
 ───────────────────────────────────────────── */
 
 :root {
-  /* Brand palette */
-  --ink: #0a090c;
-  --surface: #0f0e12;
-  --lift: #16141b;
-  --raised: #1e1b26;
-  --rule: #2a2733;
-  --ghost: #3d3a4a;
-  --text: #eae8f0;
-  --dim: #8a879a;
-  --mute: #4a4758;
-  --brand: #c8f044;
-  --brand-dark: #1a2500;
-  --brand-mid: #4a6a00;
+  color-scheme: light;
 
-  /* shadcn semantic tokens */
-  --background: var(--surface);
-  --foreground: var(--text);
-  --primary: var(--brand);
-  --primary-foreground: var(--ink);
-  --secondary: var(--raised);
-  --secondary-foreground: var(--text);
-  --muted: var(--lift);
-  --muted-foreground: var(--dim);
-  --accent: var(--raised);
-  --accent-foreground: var(--text);
-  --border: var(--rule);
-  --input: var(--rule);
-  --ring: var(--brand);
-  --radius: 0.625rem;
+  --bg: #f6f5f1;          /* warm off-white page */
+  --surface: #ffffff;     /* cards, header bar */
+  --ink: #0b0b0c;         /* headlines, body, dark sections, footer */
+  --muted: #6b6a66;       /* secondary text, labels */
+  --line: #e4e2dc;        /* 1px borders, grid lines, dividers */
+  --accent: #c6f432;      /* Sharp Lime */
+  --accent-ink: #3d5a00;  /* accent text on light backgrounds */
+  --dark-2: #17171a;      /* dark section gradient end */
+
+  /* Derived */
+  --on-accent: #0b0b0c;  /* lime is constant, so text on it is too */
+  --marker-fg: #0b0b0c;  /* ink text on the lime highlighter stroke */
+  --dot: rgba(11, 11, 12, 0.06);
+  --hatch: rgba(11, 11, 12, 0.045);
+}
+
+/* Dark mode follows the system setting; light is the default. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --bg: #0b0b0c;
+    --surface: #141416;
+    --ink: #f6f5f1;
+    --muted: #9a9892;
+    --line: #262629;
+    --accent: #c6f432;
+    --accent-ink: #c6f432; /* lime reads fine on a dark page */
+    --dark-2: #17171a;
+
+    --on-accent: #0b0b0c;
+    --marker-fg: #0b0b0c;
+    --dot: rgba(246, 245, 241, 0.07);
+    --hatch: rgba(246, 245, 241, 0.05);
+  }
 }
 
 @theme inline {
-  /* Brand colors → utilities (bg-surface, text-dim, border-rule, …) */
-  --color-ink: var(--ink);
+  --color-bg: var(--bg);
   --color-surface: var(--surface);
-  --color-lift: var(--lift);
-  --color-raised: var(--raised);
-  --color-rule: var(--rule);
-  --color-ghost: var(--ghost);
-  --color-text: var(--text);
-  --color-dim: var(--dim);
-  --color-mute: var(--mute);
-  --color-brand: var(--brand);
-  --color-brand-dark: var(--brand-dark);
-  --color-brand-mid: var(--brand-mid);
-
-  /* shadcn semantic colors */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
+  --color-line: var(--line);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --color-accent-ink: var(--accent-ink);
+  --color-dark-2: var(--dark-2);
+  --color-on-accent: var(--on-accent);
+  --color-marker-fg: var(--marker-fg);
 
-  /* Fonts */
-  --font-display: var(--font-syne);
-  --font-sans: var(--font-dm-sans);
-  --font-mono: var(--font-dm-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --color-border: var(--line);
+  --color-ring: var(--accent-ink);
 
-  /* Radii */
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
 
-  /* Animations */
-  --animate-marquee: marquee 24s linear infinite;
-  --animate-accordion-down: accordion-down 0.3s ease;
-  --animate-accordion-up: accordion-up 0.3s ease;
+  --animate-float: sf-float 6s ease-in-out infinite;
+  --animate-marquee: sf-marquee 46s linear infinite;
+  --animate-marquee-rev: sf-marquee-rev 52s linear infinite;
+  --animate-accordion-down: accordion-down 0.28s ease;
+  --animate-accordion-up: accordion-up 0.28s ease;
 
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
+  @keyframes sf-float {
+    0%, 100% { transform: translateY(0) var(--tilt, rotate(0deg)); }
+    50%      { transform: translateY(-5px) var(--tilt, rotate(0deg)); }
+  }
+  @keyframes sf-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes sf-marquee-rev {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
   }
   @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
+    from { height: 0; }
+    to   { height: var(--radix-accordion-content-height); }
   }
   @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
+    from { height: var(--radix-accordion-content-height); }
+    to   { height: 0; }
   }
 }
 
@@ -130,10 +106,9 @@ html {
 }
 
 body {
-  background: var(--surface);
-  color: var(--text);
-  font-family: var(--font-sans), sans-serif;
-  font-weight: 300;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -141,5 +116,104 @@ body {
 @layer base {
   * {
     @apply border-border;
+  }
+
+  :where(a, button, input, select, textarea, summary):focus-visible {
+    outline: 2px solid var(--accent-ink);
+    outline-offset: 2px;
+  }
+
+  /* Numbers line up in tables and stat rows. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* ── Dark section ─────────────────────────────────────
+     Ink → #17171A gradient. Stays dark in both schemes, so
+     it re-points the tokens for everything nested inside. */
+  .section-dark {
+    --bg: var(--ink-fixed, #0b0b0c);
+    --surface: #17171a;
+    --ink: #f6f5f1;
+    --muted: #9a9892;
+    --line: #2a2a2e;
+    --accent-ink: var(--accent);
+    --marker-fg: #f6f5f1;
+    --dot: rgba(246, 245, 241, 0.07);
+    --hatch: rgba(246, 245, 241, 0.05);
+
+    background: linear-gradient(160deg, #0b0b0c 0%, #17171a 100%);
+    color: var(--ink);
+  }
+
+  /* ── 3. Hatched side rails ────────────────────────────
+     The 1100px frame has 1px sides; the gutters outside it
+     get fine diagonal hatching. */
+  .rails {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--hatch) 0,
+      var(--hatch) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  }
+
+  /* ── 4. Dot-grid background ───────────────────────────
+     2px dots on a 24px pitch. */
+  .dot-grid {
+    background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* ── Lime marker highlight ────────────────────────────
+     A highlighter stroke behind ink text. Slightly skewed
+     and inset so it reads as a hand-drawn swipe. */
+  .marker {
+    color: var(--marker-fg);
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+    white-space: nowrap;
+  }
+  .marker::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0.14em -0.12em 0.1em -0.12em;
+    background: var(--accent);
+    transform: skewX(-2.5deg);
+  }
+  /* On dark sections the marker would shout; use an underline instead. */
+  .section-dark .marker::before {
+    inset: auto -0.06em 0.06em -0.06em;
+    height: 0.18em;
+  }
+}
+
+@layer utilities {
+  /* Soft fade at both ends of a marquee row. */
+  .fade-x {
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .balance {
+    text-wrap: balance;
+  }
+}
+
+/* The brief: disable floats and marquees for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
 }

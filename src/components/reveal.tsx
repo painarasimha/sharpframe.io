@@ -4,17 +4,12 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-interface RevealProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Stagger delay in milliseconds. */
+interface RevealProps extends React.HTMLAttributes<HTMLElement> {
   delay?: number;
   as?: "div" | "li";
 }
 
-/**
- * Fades + lifts its children into view the first time they intersect
- * the viewport — the React replacement for the original `.fade-up`
- * IntersectionObserver script.
- */
+/** Fades in once on first scroll into view. Disabled by reduced-motion. */
 export function Reveal({
   children,
   className,
@@ -23,7 +18,7 @@ export function Reveal({
   style,
   ...props
 }: RevealProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLElement>(null);
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
@@ -37,25 +32,24 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const Comp = as;
+  const Comp = as as React.ElementType;
 
   return (
     <Comp
-      // @ts-expect-error — ref typing differs between div and li, both accept it.
       ref={ref}
       className={cn(
-        "transition-[opacity,transform] duration-700 ease-out will-change-transform",
-        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+        "transition-[opacity,transform] duration-500 ease-out",
+        visible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
         className
       )}
-      style={{ transitionDelay: visible ? `${delay}ms` : "0ms", ...style }}
+      style={{ transitionDelay: `${delay}ms`, ...style }}
       {...props}
     >
       {children}

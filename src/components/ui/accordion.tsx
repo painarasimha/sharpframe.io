@@ -14,7 +14,7 @@ function AccordionItem({
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
-      className={cn("border-b border-rule", className)}
+      className={cn("border-b border-line", className)}
       {...props}
     />
   );
@@ -29,13 +29,16 @@ function AccordionTrigger({
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
         className={cn(
-          "group flex flex-1 items-center justify-between gap-5 py-[22px] text-left font-display text-base font-semibold text-text outline-none transition-colors",
+          "group flex flex-1 items-center justify-between gap-5 py-5 text-left text-[16px] font-medium text-ink transition-colors hover:text-accent-ink",
           className
         )}
         {...props}
       >
         {children}
-        <Plus className="size-5 shrink-0 text-brand transition-transform duration-300 group-data-[state=open]:rotate-45" />
+        <Plus
+          className="size-4 shrink-0 text-accent-ink transition-transform duration-300 group-data-[state=open]:rotate-45"
+          aria-hidden
+        />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
@@ -48,10 +51,10 @@ function AccordionContent({
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
   return (
     <AccordionPrimitive.Content
-      className="overflow-hidden text-sm leading-[1.75] text-dim data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      className="overflow-hidden text-[15px] leading-[1.75] text-muted data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
       {...props}
     >
-      <div className={cn("pb-[22px]", className)}>{children}</div>
+      <div className={cn("max-w-[680px] pb-5", className)}>{children}</div>
     </AccordionPrimitive.Content>
   );
 }
